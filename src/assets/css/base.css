@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+/* 禁止缩放表单 */
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input {
+    resize: none;
+    border: none;
+}
+
+/* 取消链接高亮  */
+body,
+div,
+ul,
+li,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+select,
+p,
+dl,
+dt,
+dd,
+a,
+img,
+button,
+form,
+table,
+th,
+tr,
+td,
+tbody,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    outline-style: none;
+    /*FF*/
+}
+body {
+    font-family: helvetica;
+    margin: 0;
+}
+body * {
+
+    -webkit-text-size-adjust: 100%;
+    /* -webkit-user-select: none; */
+
+}
+a,button,input {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+button,input {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+a {
+    text-decoration: none;
+    color: black
+}
+input {
+    outline: none;
+    -webkit-appearance: none;
+}
+input,
+select {
+    vertical-align: middle;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+img {
+    vertical-align: middle;
+    content: normal !important;
+}
+h2, h3, h4,p {
+    margin: 0;
+}
+.left {
+    float: left;
+}
+.right {
+    float:right;
+}
+.margin-top {
+    margin-top: .6667rem /* 10/15 *//* 10/15 */;
+}
+/*css为clearfix，清除浮动*/
+
+.clearfix::before,
+.clearfix::after {
+    content: " ";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+    /*IE/7/6*/
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;/* 北京颜色 */
+}
