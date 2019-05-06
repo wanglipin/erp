@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Vue from 'vue'
+import store from '@/store'
+import { getToken } from '@/utils/auth'
 import NProgress from 'nprogress';
 import qs from 'qs';
 import 'nprogress/nprogress.css';
@@ -65,6 +67,9 @@ axiosInstance.interceptors.request.use(config => {
   }
   if (options.abort) {
     loadingService = Loading.service();
+  }
+  if (store.getters.token) {
+    config.headers['X-Token'] = getToken()
   }
   if (config.method === 'get') {
     // 清除get缓存

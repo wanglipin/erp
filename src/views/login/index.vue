@@ -38,7 +38,7 @@
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
         </el-form-item>
-        <el-button type="primary" style="width:100%;margin-bottom:30px;">登陆</el-button>
+        <el-button type="primary" @click.native.prevent="handleLogin" style="width:100%;margin-bottom:30px;">登陆</el-button>
       </div>
     </el-form>
   </div>
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    showPwd() {
+    showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
       } else {
@@ -66,6 +66,9 @@ export default {
         this.$refs.password.focus()
       })
     },
+    handleLogin () {
+      
+    }
   }
 }
 </script>

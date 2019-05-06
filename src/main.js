@@ -11,7 +11,9 @@ import './assets/css/base.css'
 import axios from './axios/request'
 import * as filters from './filters'
 Vue.use(VueRouter)
-Vue.use(Element)
+Vue.use(Element, {
+  i18n: (key, value) => i18n.t(key, value)
+})
 Vue.prototype.$http = axios
 
 Object.keys(filters).forEach(key => {
@@ -22,5 +24,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
