@@ -3,7 +3,7 @@
     <el-form :model="loginForm"  ref="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="login-row">
         <div class="title-container">
-          <h3>农药系统</h3>
+          <h3>王者荣耀系统</h3>
         </div>
         <el-form-item  prop="username">
           <span class="svg-container">
@@ -38,7 +38,7 @@
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
         </el-form-item>
-        <el-button type="primary" @click.native.prevent="handleLogin" style="width:100%;margin-bottom:30px;">登陆</el-button>
+        <el-button type="primary" :loading="loading" @click.native.prevent="handleLogin" style="width:100%;margin-bottom:30px;">登陆</el-button>
       </div>
     </el-form>
   </div>
@@ -52,7 +52,19 @@ export default {
         username: 'admin',
         password: '123456'
       },
-      passwordType: 'password'
+      passwordType: 'password',
+      capsTooltip: false,
+      loading: false,
+      showDialog: false,
+      redirect: undefined
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
     }
   },
   methods: {
@@ -67,7 +79,22 @@ export default {
       })
     },
     handleLogin () {
-      
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true;
+          this.$store.dispatch('login', this.loginForm)
+          .then(() => {
+            this.$router.push({ path: this.redirect || '/' })
+            this.loading = false
+          })
+          .catch(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false;
+        }
+      })
     }
   }
 }
@@ -109,16 +136,20 @@ export default {
   }
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    background: #a589878a;
     border-radius: 5px;
     color: #454545;
+  }
+  .el-button--primary {
+    border-color: transparent;
+    background-color: #854d9087;
   }
 }
 </style>
 
 <style lang="less" scoped>
 @bgColor: #077e78;
-@fontColor:#eee;
+@fontColor:#7e1840a8;;
 @dark_gray:#889aa4;
 .login-container {
   width: 100%;
@@ -134,7 +165,7 @@ export default {
     overflow: hidden;
     .login-row {
       padding: 40px;
-      background:rgba(255, 255, 255, .5);
+      background-color: #dd63e64d;
     }
     .show-pwd {
       position: absolute;

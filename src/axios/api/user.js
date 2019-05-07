@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import request from '@/axios/request'
 
 export function login(data) {
   return request({
-    url: '/user/login',
+    url: 'user/login',
     method: 'post',
     data
   })

@@ -31,7 +31,8 @@ const codeMessage = {
   500: '服务器发生错误，请检查服务器。',
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。'
+  504: '网关超时。',
+  508: 'Login failed, unable to get user details.'
 };
 const axiosInstance = axios.create({
   baseURL: process.env.VUE_APP_BASEURL,

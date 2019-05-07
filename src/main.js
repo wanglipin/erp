@@ -12,7 +12,7 @@ import axios from './axios/request'
 import * as filters from './filters'
 Vue.use(VueRouter)
 Vue.use(Element, {
-  i18n: (key, value) => i18n.t(key, value)
+  // i18n: (key, value) => i18n.t(key, value)
 })
 Vue.prototype.$http = axios
 
@@ -24,6 +24,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  i18n,
+  // i18n,
   render: h => h(App)
 }).$mount('#app')
