@@ -11,6 +11,12 @@ const constantRoutes = [
     name: 'login',
     hidden: true
   },
+  {
+    path: '/home',
+    component: () => import('@/views/Home'),
+    name: 'Home',
+    hidden: true
+  },
 ]
 
 const router = new Router({

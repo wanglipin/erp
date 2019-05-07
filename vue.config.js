@@ -5,8 +5,9 @@ const webpack = require('webpack')
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
-const httpType = 'http://'
-const proxyUrl = '10.168.1.156:8080' // 代理地址设置
+const port = 8088
+// const httpType = 'http://'
+// const proxyUrl = `localhost:${port}/mock` // 代理地址设置
 module.exports = {
   // 基本路径
   publicPath: '/',
@@ -43,20 +44,20 @@ module.exports = {
     },
     open: true, // 是否自动打开页面
     // host: '192.168.1.105',//如果真机测试需要设置电脑本地路由的V4ip，本地用localhost 192.168.68.135
-    // port: 8088,//本地服务器端口
+    port: port, //本地服务器端口
     // https: false,//是否用https
     hotOnly: true,//是否开启热更新
     proxy: {
       // 配置跨域
-      'api': {
-        target: httpType + proxyUrl, // http:192.168.1.105:8088
-        ws: true, // 是否开启跨域
-        changOrigin: true,
+      [process.env.VUE_APP_BASE_API]: {
+        target: `http://localhost:${port}/mock`,
+        changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          ['^' + process.env.VUE_APP_BASE_API]: ''
         }
-      }// 下面可以设置更多代理
+      }
     },
+    after: require('./src/mock/mock-server.js'),
     before (app) { // 请求数据这样写就可以了moke
       // http://localhost:8081/api/goods
       // app.get("/api/goods",(req,res)=>{

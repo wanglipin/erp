@@ -6,7 +6,6 @@ const tokens = {
     token: 'editor-token'
   }
 }
-
 const users = {
   'admin-token': {
     roles: ['admin'],
@@ -21,51 +20,60 @@ const users = {
     name: 'Normal Editor'
   }
 }
-
 export default [
+  // user login
   {
     url: '/user/login',
     type: 'post',
-    respoense: config => {
-      const { username } = config.body
+    response: config => {
+      const {
+        username
+      } = config.body
       const token = tokens[username]
+
+      // mock error
       if (!token) {
         return {
-          success: false,
-          message: '用户名账号或密码错误'
+          code: 60204,
+          message: 'Account and password are incorrect.'
         }
       }
       return {
-        success: true,
+        code: 20000,
         data: token
       }
     }
   },
+  // get user info
   {
     url: '/user/info\.*',
     type: 'get',
-    respoense: config => {
-      const { token } = config.query
+    response: config => {
+      const {
+        token
+      } = config.query
       const info = users[token]
 
+      // mock error
       if (!info) {
         return {
-          success: false,
+          code: 50008,
           message: 'Login failed, unable to get user details.'
         }
       }
       return {
-        success: true,
+        code: 20000,
         data: info
       }
     }
   },
+  // user logout
   {
     url: '/user/logout',
     type: 'post',
     response: _ => {
       return {
-        success: true,
+        code: 20000,
         data: 'success'
       }
     }

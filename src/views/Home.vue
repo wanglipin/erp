@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1>1231231231313123123</h1>
   </div>
 </template>
 

@@ -32,6 +32,9 @@
           placeholder="密码"
           tabindex="2"
           auto-complete="on"
+          @keyup.native="checkCapslock"
+          @blur="capsTooltip = false"
+          @keyup.enter.native="handleLogin"
           clearable
           ></el-input>
           <span class="show-pwd" @click="showPwd">
@@ -68,6 +71,18 @@ export default {
     }
   },
   methods: {
+    checkCapslock({ shiftKey, key } = {}) {
+      if (key && key.length === 1) {
+        if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
+          this.capsTooltip = true
+        } else {
+          this.capsTooltip = false
+        }
+      }
+      if (key === 'CapsLock' && this.capsTooltip === true) {
+        this.capsTooltip = false
+      }
+    },
     showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -82,9 +97,12 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
+          console.log('2222222')
           this.$store.dispatch('login', this.loginForm)
           .then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+            console.log('1111111')
+            // this.$router.push({ path: this.redirect || '/' })
+            this.$router.push({name: 'home'});
             this.loading = false
           })
           .catch(() => {

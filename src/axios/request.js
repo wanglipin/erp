@@ -35,12 +35,13 @@ const codeMessage = {
   508: 'Login failed, unable to get user details.'
 };
 const axiosInstance = axios.create({
-  baseURL: process.env.VUE_APP_BASEURL,
+  baseURL: process.env.VUE_APP_BASE_API,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
     'BsmAjaxHeader': true
   }, // 表单传递
-  timeout: 20000
+  timeout: 20000,
+  withCredentials: true,
 });
 let loadingService = '';
 // 请求完成回调
@@ -63,6 +64,7 @@ const handleError = function (response) {
 };
 axiosInstance.interceptors.request.use(config => {
   let options = config.options || {}; // options 也是根据后台,看后台给的是什么
+  console.log(config)
   if (!options.loadingHide) {
     NProgress.start();
   }
@@ -107,6 +109,7 @@ axiosInstance.interceptors.response.use(data => {
   return responseData;
 }, error => {
   finishCallback();
+  console.log(error)
   handleError(error.response);
   return Promise.reject(error);
 });
