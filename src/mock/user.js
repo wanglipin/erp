@@ -34,12 +34,12 @@ export default [
       // mock error
       if (!token) {
         return {
-          code: 60204,
+          success: false,
           message: 'Account and password are incorrect.'
         }
       }
       return {
-        code: 20000,
+        success: true,
         data: token
       }
     }
@@ -57,12 +57,12 @@ export default [
       // mock error
       if (!info) {
         return {
-          code: 50008,
+          success: false,
           message: 'Login failed, unable to get user details.'
         }
       }
       return {
-        code: 20000,
+        success: true,
         data: info
       }
     }
@@ -73,7 +73,7 @@ export default [
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        success: true,
         data: 'success'
       }
     }

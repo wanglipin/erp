@@ -63,7 +63,7 @@ const handleError = function (response) {
   throw error;
 };
 axiosInstance.interceptors.request.use(config => {
-  let options = config.options || {}; // options 也是根据后台,看后台给的是什么
+  let options = config.data || {}; // options 也是根据后台,看后台给的是什么
   console.log(config)
   if (!options.loadingHide) {
     NProgress.start();

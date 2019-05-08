@@ -7,8 +7,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const data = response
-        console.log(response, '11231313')
+        const data = response.data
         commit('SET_TOKEN', data.token)
         setToken(data.token)
         resolve()
