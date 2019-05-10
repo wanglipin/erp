@@ -5,17 +5,17 @@ import { getToken } from '@/utils/auth'
 import NProgress from 'nprogress';
 import qs from 'qs';
 import 'nprogress/nprogress.css';
-import ElementUI, {
-  Notification,
-  MessageBox,
-  Loading
-} from 'element-ui'
-Vue.use(ElementUI, {
-  size: 'small'
-})
-Vue.use(MessageBox)
-Vue.use(Notification)
-Vue.use(Loading)
+// import ElementUI, {
+//   Notification,
+//   MessageBox,
+//   Loading
+// } from 'element-ui'
+// Vue.use(ElementUI, {
+//   size: 'small'
+// })
+// // Vue.use(MessageBox)
+// // Vue.use(Notification)
+// // Vue.use(Loading)
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -52,6 +52,7 @@ const finishCallback = function () {
   // 报错处理
 const handleError = function (response) {
   const errorText = codeMessage[response.status] || response.statusText;
+  console.log(codeMessage[response.status],'121222')
   Notification({
     type: 'error',
     title: `请求错误 ${response.status}: ${response.config.url}`, // (status)看后台给的是什么参数 如code 啊什么的
@@ -64,23 +65,23 @@ const handleError = function (response) {
 };
 axiosInstance.interceptors.request.use(config => {
   let options = config.data || {}; // options 也是根据后台,看后台给的是什么
-  console.log(config)
   if (!options.loadingHide) {
     NProgress.start();
   }
   if (options.abort) {
     loadingService = Loading.service();
   }
-  if (store.getters.token) {
-    config.headers['X-Token'] = getToken()
-  }
   if (config.method === 'get') {
     // 清除get缓存
     config.url = `${config.url}?t=${new Date().getTime()}`;
     config.params = config.data;
+  
     delete config.data;
   } else {
     config.data = qs.stringify(config.data || {});
+  }
+  if (store.getters.token) {
+    config.headers['X-Token'] = getToken()
   }
   return config;
 }, error => {

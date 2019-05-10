@@ -71,18 +71,6 @@ export default {
     }
   },
   methods: {
-    checkCapslock({ shiftKey, key } = {}) {
-      if (key && key.length === 1) {
-        if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
-          this.capsTooltip = true
-        } else {
-          this.capsTooltip = false
-        }
-      }
-      if (key === 'CapsLock' && this.capsTooltip === true) {
-        this.capsTooltip = false
-      }
-    },
     showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -171,7 +159,7 @@ export default {
   width: 100%;
   height: 100vh;
   background-image: url('../../assets/img/bg/bg.jpeg');
-  background-size: 100% 100%;
+  background-size: cover;
   .login-form {
     position: relative;
     width: 480px;

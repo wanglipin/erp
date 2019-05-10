@@ -35,7 +35,7 @@ export default [
       if (!token) {
         return {
           success: false,
-          message: 'Account and password are incorrect.'
+          message: '账号或密码错误'
         }
       }
       return {

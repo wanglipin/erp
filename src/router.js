@@ -1,6 +1,13 @@
 import Router from 'vue-router'
 
 const constantRoutes = [
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   name: '首页',
+  //   children: [{ path: 'dashboard', component: dashboard }]
+  // },
   {
     path: '/',
     redirect: { name:'login'}
@@ -15,6 +22,16 @@ const constantRoutes = [
     path: '/home',
     component: () => import('@/views/Home'),
     name: 'Home',
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/error-page/404'),
+    hidden: true
+  },
+  {
+    path: '/401',
+    component: () => import('@/views/error-page/401'),
     hidden: true
   },
 ]

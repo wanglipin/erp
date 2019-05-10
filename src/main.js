@@ -5,15 +5,13 @@ import router from './router'
 import store from './store'
 import './icons' // icon
 import './registerServiceWorker'
-import Element from 'element-ui'
+import ElementUI from 'element-ui'
 import './theme/index.css'
 import './assets/css/base.css'
 import axios from './axios/request'
 import * as filters from './filters'
+Vue.use(ElementUI,  { size: 'small' })
 Vue.use(VueRouter)
-Vue.use(Element, {
-  // i18n: (key, value) => i18n.t(key, value)
-})
 Vue.prototype.$http = axios
 
 Object.keys(filters).forEach(key => {
