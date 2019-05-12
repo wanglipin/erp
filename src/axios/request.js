@@ -5,17 +5,14 @@ import { getToken } from '@/utils/auth'
 import NProgress from 'nprogress';
 import qs from 'qs';
 import 'nprogress/nprogress.css';
-// import ElementUI, {
-//   Notification,
-//   MessageBox,
-//   Loading
-// } from 'element-ui'
-// Vue.use(ElementUI, {
-//   size: 'small'
-// })
-// // Vue.use(MessageBox)
-// // Vue.use(Notification)
-// // Vue.use(Loading)
+import ElementUI, {
+  Notification,
+  MessageBox,
+  Loading
+} from 'element-ui'
+Vue.use(ElementUI, {
+  size: 'small'
+})
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
