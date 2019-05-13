@@ -88,6 +88,7 @@ export default {
           this.$store.dispatch('login', this.loginForm)
           .then(() => {
             // this.$router.push({ path: this.redirect || '/' })
+            // this.$router.replace('dashboard');
             this.$router.push('dashboard');
             this.loading = false
           })

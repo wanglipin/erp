@@ -1,6 +1,85 @@
 const tokens = {
   admin: {
-    token: 'admin-token'
+    token: 'admin-token',
+    menuData: [
+      {
+        category: "menu",
+        children: [
+          {
+            children: [
+              {
+                category: "menu",
+                children: [
+                  {
+                    category: "menu",
+                    children: [
+                      {
+                        category: "menu",
+                        children: null,
+                        component: "PlatformOverview",
+                        icon: null,
+                        id: 74,
+                        meta: "[]",
+                        name: "平台概览",
+                        params: "[]",
+                        parentId: 8,
+                        path: "platform_overview",
+                        priority: 1,
+                        redirect: "",
+                        router: null
+                      }
+                    ],
+                    component: "App",
+                    icon: "icon-pingtai",
+                    id: 8,
+                    meta: "[]",
+                    name: "平台管理",
+                    params: "[]",
+                    parentId: 5,
+                    path: "platform",
+                    priority: 2,
+                    redirect: "nanotubes/platform/platform_overview",
+                    router: null,
+                  }
+                ],
+                component: "App",
+                icon: "icon-pingtai",
+                meta: "[]",
+                name: "平台管理",
+                params: "[]",
+                parentId: 5,
+                path: "platform",
+                priority: 2,
+                redirect: "nanotubes/platform/platform_overview",
+                router: null,
+              }
+            ],
+            component: "Home",
+            icon: "icon-ziyuannaguan",
+            id: 5,
+            meta: "[]",
+            name: "资源纳管",
+            params: "[]",
+            parentId: 0,
+            path: "/nanotubes",
+            priority: 2,
+            redirect: null,
+            router: null,
+          }
+        ],
+        component: "Home",
+        icon: "lock",
+        id: 5,
+        meta: "[]",
+        name: "资源纳管",
+        params: "[]",
+        parentId: 0,
+        path: "/dashboard",
+        priority: 2,
+        redirect: null,
+        router: null,
+      }
+    ]
   },
   editor: {
     token: 'editor-token'
@@ -10,8 +89,11 @@ const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
+    login: 'login',
+    isCollapsed: false,
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    name: '超级管理员',
+    basePath: '/'
   },
   'editor-token': {
     roles: ['editor'],
@@ -49,9 +131,7 @@ export default [
     url: '/user/info\.*',
     type: 'get',
     response: config => {
-      const {
-        token
-      } = config.query
+      const { token } = config.query
       const info = users[token]
 
       // mock error

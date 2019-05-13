@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import './permission'
 import router from '@/routers'
 import store from './store'
 import './icons' // icon

@@ -49,7 +49,6 @@ const finishCallback = function () {
   // 报错处理
 const handleError = function (response) {
   const errorText = codeMessage[response.status] || response.statusText;
-  console.log(codeMessage[response.status],'121222')
   Notification({
     type: 'error',
     title: `请求错误 ${response.status}: ${response.config.url}`, // (status)看后台给的是什么参数 如code 啊什么的

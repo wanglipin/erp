@@ -1,18 +1,9 @@
 import Router from 'vue-router'
-
+const Home = () => import('../layouts/Home.vue')
 const constantRoutes = [
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   name: '首页',
-  //   children: [{ path: 'dashboard', component: dashboard }]
-  // },
   {
-    path: '',
-    redirect: {
-      name: 'login'
-    }
+    path: '/',
+    redirect: '/login'
   },
   {
     path: '/login',
@@ -22,9 +13,10 @@ const constantRoutes = [
   },
   {
     path: '/dashboard',
-    component: () => import('@/layouts/Home'),
+    component: Home,
     name: 'Home',
-    hidden: true
+    hidden: true,
+    meta: { title: '首页'}
   },
   {
     path: '/404',
@@ -40,7 +32,7 @@ const constantRoutes = [
 
 const router = new Router({
   // mode: 'history',
-  // base: process.env.BASE_URL,
+  base: process.env.BASE_URL,
   routes: constantRoutes
 })
 
