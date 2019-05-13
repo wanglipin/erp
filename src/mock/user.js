@@ -1,6 +1,85 @@
 const tokens = {
   admin: {
-    token: 'admin-token'
+    token: 'admin-token',
+    menuData: [
+      {
+        category: "menu",
+        children: [
+          {
+            children: [
+              {
+                category: "menu",
+                children: [
+                  {
+                    category: "menu",
+                    children: [
+                      {
+                        category: "menu",
+                        children: null,
+                        component: "PlatformOverview",
+                        icon: null,
+                        id: 74,
+                        meta: "[]",
+                        name: "平台概览",
+                        params: "[]",
+                        parentId: 8,
+                        path: "platform_overview",
+                        priority: 1,
+                        redirect: "",
+                        router: null
+                      }
+                    ],
+                    component: "App",
+                    icon: "icon-pingtai",
+                    id: 8,
+                    meta: "[]",
+                    name: "平台管理",
+                    params: "[]",
+                    parentId: 5,
+                    path: "platform",
+                    priority: 2,
+                    redirect: "nanotubes/platform/platform_overview",
+                    router: null,
+                  }
+                ],
+                component: "App",
+                icon: "icon-pingtai",
+                meta: "[]",
+                name: "平台管理",
+                params: "[]",
+                parentId: 5,
+                path: "platform",
+                priority: 2,
+                redirect: "nanotubes/platform/platform_overview",
+                router: null,
+              }
+            ],
+            component: "Home",
+            icon: "icon-ziyuannaguan",
+            id: 5,
+            meta: "[]",
+            name: "资源纳管",
+            params: "[]",
+            parentId: 0,
+            path: "/nanotubes",
+            priority: 2,
+            redirect: null,
+            router: null,
+          }
+        ],
+        component: "Home",
+        icon: "icon-ziyuannaguan",
+        id: 5,
+        meta: "[]",
+        name: "资源纳管",
+        params: "[]",
+        parentId: 0,
+        path: "/nanotubes",
+        priority: 2,
+        redirect: null,
+        router: null,
+      }
+    ]
   },
   editor: {
     token: 'editor-token'
