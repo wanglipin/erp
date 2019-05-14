@@ -5,10 +5,18 @@ import router, { resetRouter } from '@/routers'
 const users = {
   state: {
     token: getToken(),
+    isCollapsed: false,
+    sideMenuData: [],
+    theme: {
+      name: 'theme-black',
+      sidebarColor: '#2d303e'
+    },
+    logo: '',
     name: '',
-    avatar: '',
-    introduction: '',
-    roles: []
+    userData: {},
+    operateTime: '',
+    basePath: '',
+    $webSocket: ''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -17,15 +25,31 @@ const users = {
     SET_INTRODUCTION: (state, introduction) => {
       state.introduction = introduction
     },
-    SET_NAME: (state, name) => {
-      state.name = name
-    },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
-    }
+    },
+    SETTING_LOGO(state, logo) { //设置login
+      state.logo = logo
+    },
+    SETTING_SIDE_MENU(state, sideMenuData) { //设置侧边栏
+      state.sideMenuData = sideMenuData
+    },
+    SETTING_BASE_PATH(state, basePath) { //设置基本路径
+      state.basePath = basePath
+    },
+    SETTING_NAME(state, name) { //设置姓名
+      const userData = JSON.parse(localStorage.getItem('info'))
+      state.name = userData[0].name 
+    },
+    // SETTING_THEME(state, data) { //设置主题
+    //   state.theme = data
+    // },
+    TOGGLE_SIDEBAR(state) { //切换栏
+      state.isCollapsed = !state.isCollapsed
+    },
   },
   actions: {
     // user login
@@ -43,6 +67,7 @@ const users = {
             data
           } = response
           commit('SET_TOKEN', data.token)
+          commit('SETTING_BASE_PATH', data.menuData)
           setToken(data.token)
           localStorage.menuData = JSON.stringify(data.menuData);
           resolve()
@@ -61,7 +86,6 @@ const users = {
           }
           const {
             roles,
-            name,
             avatar,
             logo,
             basePath,
@@ -72,11 +96,12 @@ const users = {
             reject('getInfo: roles must be a non-null array!')
           }
           commit('SET_ROLES', roles)
-          commit('SET_NAME', name)
+          // commit('SETTING_NAME', roles[0].name)
           commit('SET_AVATAR', avatar)
-          conmit('SETTING_LOGO', logo)
-          conmit('SETTING_BASE_PATH', basePath)
+          commit('SETTING_LOGO', logo)
+          commit('SETTING_BASE_PATH', basePath)
           commit('SET_INTRODUCTION', introduction)
+          localStorage.info = JSON.stringify(data);
           resolve(data)
         }).catch(error => {
           reject(error)

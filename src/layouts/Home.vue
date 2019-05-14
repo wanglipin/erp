@@ -20,19 +20,20 @@ export default {
     sideBar
   },
   created() {
+    console.log(this.theme)
   },
   computed: {
     ...mapState({
-      theme: state => state.app.theme,
       isCollapsed: state => state.app.isCollapsed,
       menuData: state => state.app.sideMenuData,
       basePath: state => state.app.basePath,
       logo: state => state.app.logo,
-      name: state => state.app.name
+      name: state => state.app.name,
+      theme: state => state.app.theme,
     })
   },
-  mounted() {
-    console.log(this.theme)
+  mounted () {
+    
   },
   methods: {
     selectItem () {
