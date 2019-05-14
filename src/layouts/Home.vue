@@ -1,12 +1,13 @@
 <template>
   <div>
     <el-container class="app-wrapper">
-      <side-bar :theme="theme" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
+      <side-bar :theme="theme" :name="name" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
     </el-container>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
+console.log(mapState({theme: state => state.app.them}), 'mapState')
 import { getToken } from '@/utils/auth'
 import sideBar from '@/layouts/components/Sidebar.vue'
 export default {
@@ -20,28 +21,29 @@ export default {
     sideBar
   },
   created() {
-    console.log(this.theme)
+    
   },
   computed: {
     ...mapState({
-      isCollapsed: state => state.app.isCollapsed,
-      menuData: state => state.app.sideMenuData,
-      basePath: state => state.app.basePath,
-      logo: state => state.app.logo,
-      name: state => state.app.name,
-      theme: state => state.app.theme,
+      isCollapsed: state => state.users.isCollapsed,
+      menuData: state => state.users.sideMenuData,
+      basePath: state => state.users.basePath,
+      logo: state => state.users.logo,
+      name: state => state.users.name,
+      theme: state => state.users.theme,
     })
   },
   mounted () {
-    
+  },
+  watch: {
+    $route () {
+      this.handlePath()
+    }
   },
   methods: {
     selectItem () {
       console.log('MMMMMMMM')
     },
-    // getInfo () {
-    //   this.$store.dispatch('getInfo', getToken())
-    // },
     toggleSidebar () {
       this.$store.commit('TOGGLE_SIDEBAR')
     },

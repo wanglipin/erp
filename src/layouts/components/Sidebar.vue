@@ -42,7 +42,9 @@ export default {
       
     }
   },
-  created () {},
+  created () {
+    console.log(this.theme)
+  },
   methods: {
     selectItem (index) {
       this.$emit('select', index)
