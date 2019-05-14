@@ -42,6 +42,7 @@ export default {
       
     }
   },
+  created () {},
   methods: {
     selectItem (index) {
       this.$emit('select', index)

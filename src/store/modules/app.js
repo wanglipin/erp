@@ -3,8 +3,8 @@ const app = {
     isCollapsed: false,
     sideMenuData: [],
     theme: {
-      name: '',
-      sidebarColor: ''
+      name: 'theme-black',
+      sidebarColor: '#2d303e'
     },
     logo: '',
     name: '',
@@ -26,9 +26,9 @@ const app = {
     SETTING_NAME(state, data) { //设置姓名
       state.name = data
     }, 
-    SETTING_THEME(state, data) { //设置主题
-      state.theme = data
-    },
+    // SETTING_THEME(state, data) { //设置主题
+    //   state.theme = data
+    // },
     TOGGLE_SIDEBAR(state) { //切换栏
       state.isCollapsed = !state.isCollapsed
     },

@@ -29,7 +29,7 @@ const codeMessage = {
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
-  508: 'Login failed, unable to get user details.'
+  508: '获取用户信息失败'
 };
 const axiosInstance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -70,9 +70,8 @@ axiosInstance.interceptors.request.use(config => {
   if (config.method === 'get') {
     // 清除get缓存
     config.url = `${config.url}?t=${new Date().getTime()}`;
-    config.params = config.data;
-  
-    delete config.data;
+    // config.params = config.data;
+    // delete config.data;
   } else {
     config.data = qs.stringify(config.data || {});
   }
@@ -106,7 +105,6 @@ axiosInstance.interceptors.response.use(data => {
   return responseData;
 }, error => {
   finishCallback();
-  console.log(error)
   handleError(error.response);
   return Promise.reject(error);
 });

@@ -54,7 +54,6 @@ const users = {
     // get user info
     getInfo({commit,state}) {
       return new Promise((resolve, reject) => {
-        console.log(resolve, 'resolve')
         getInfo(state.token).then(response => {
           const { data } = response
           if (!data) {
@@ -64,7 +63,7 @@ const users = {
             roles,
             name,
             avatar,
-            login,
+            logo,
             basePath,
             introduction
           } = data
@@ -75,7 +74,7 @@ const users = {
           commit('SET_ROLES', roles)
           commit('SET_NAME', name)
           commit('SET_AVATAR', avatar)
-          conmit('SETTING_LOGO', login)
+          conmit('SETTING_LOGO', logo)
           conmit('SETTING_BASE_PATH', basePath)
           commit('SET_INTRODUCTION', introduction)
           resolve(data)

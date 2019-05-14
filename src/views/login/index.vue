@@ -159,7 +159,8 @@ export default {
 .login-container {
   width: 100%;
   height: 100vh;
-  background-image: url('../../assets/img/bg/bg.jpeg');
+  // background-image: url('../../assets/img/bg/bg.jpeg');
+  background-color: darkkhaki;
   background-size: cover;
   .login-form {
     position: relative;

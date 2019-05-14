@@ -87,12 +87,25 @@ const tokens = {
 }
 const users = {
   'admin-token': {
-    roles: ['admin'],
+    roles: [
+      {
+        checked: false,
+        createrId: 1,
+        deleted: false,
+        id: 1,
+        menderId: 1,
+        name: "超级管理员",
+        ownerId: null,
+        props: "无",
+        remark: "超级管理员",
+        status: "NORMAL",
+        tenantId: 0,
+      }
+    ],
     introduction: 'I am a super administrator',
-    login: 'login',
+    login: 'BeyondCMP',
     isCollapsed: false,
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: '超级管理员',
     basePath: '/'
   },
   'editor-token': {
@@ -129,16 +142,15 @@ export default [
   // get user info
   {
     url: '/user/info\.*',
-    type: 'get',
+    // type: 'get',
     response: config => {
       const { token } = config.query
       const info = users[token]
-
       // mock error
       if (!info) {
         return {
           success: false,
-          message: 'Login failed, unable to get user details.'
+          message: '获取用户信息失败'
         }
       }
       return {

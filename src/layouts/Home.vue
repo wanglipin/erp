@@ -1,33 +1,38 @@
 <template>
   <div>
     <el-container class="app-wrapper">
-      <side-bar :theme="theme" :matchPath="matchPath" :isCollapsed="isCollapsed" :login="login" @select="selectItem"></side-bar>
+      <side-bar :theme="theme" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
     </el-container>
   </div>
 </template>
 <script>
-import sideBar from '@/layouts/components/Sidebar.vue'
 import { mapState } from 'vuex'
 import { getToken } from '@/utils/auth'
+import sideBar from '@/layouts/components/Sidebar.vue'
 export default {
   data() {
     return {
-      tableData: ''
+      tableData: '',
+      matchPath: ''
     }
   },
   components: {
     sideBar
   },
-  created() {},
+  created() {
+  },
   computed: {
     ...mapState({
-      menuData: state => state.app.menuData,
-      login: state => state.app.login,
       theme: state => state.app.theme,
-      name: state => state.app.name,
       isCollapsed: state => state.app.isCollapsed,
-      basePath: state => state.app.basePath
+      menuData: state => state.app.sideMenuData,
+      basePath: state => state.app.basePath,
+      logo: state => state.app.logo,
+      name: state => state.app.name
     })
+  },
+  mounted() {
+    console.log(this.theme)
   },
   methods: {
     selectItem () {

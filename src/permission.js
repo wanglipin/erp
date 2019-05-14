@@ -7,13 +7,12 @@ const whiteList = ['/login', '/404', '/401', '/lockme']
 
 router.beforeEach((to, form , next) => {
   // set page title
-  alert('我执行了')
   // document.title = getPageTitle(to.meta.title)
   if (getToken()) {
     if (!init) {
       init = true
       store.dispatch('getInfo')
-      router.addRoutes(store.state.permission.addRoutes)
+      // router.addRoutes(store.state.permission.addRoutes)
       next({ ...to, replace: true })
     } else next()
   } else if (whiteList.includes(to.path)) {
