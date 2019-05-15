@@ -2,6 +2,11 @@
   <div>
     <el-container class="app-wrapper">
       <side-bar :theme="theme" :name="name" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
+      <el-container class="right-container">
+        <Header-menu @toggleSidebar="toggleSidebar">
+          
+        </Header-menu>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -10,6 +15,7 @@ import { mapState } from 'vuex'
 console.log(mapState({theme: state => state.app.them}), 'mapState')
 import { getToken } from '@/utils/auth'
 import sideBar from '@/layouts/components/Sidebar.vue'
+import HeaderMenu from '@/layouts/components/HeaderMenu.vue'
 export default {
   data() {
     return {
@@ -18,10 +24,9 @@ export default {
     }
   },
   components: {
-    sideBar
+    sideBar, HeaderMenu
   },
   created() {
-    
   },
   computed: {
     ...mapState({
@@ -56,5 +61,9 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
+  }
+  .right-container {
+    flex-direction: column;
+    width: calc(100% - 180px) \0;
   }
 </style>

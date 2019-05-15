@@ -103,7 +103,8 @@ const users = {
       }
     ],
     introduction: 'I am a super administrator',
-    logo: 'BeyondCMP',
+    logo: '',
+    name: 'BeyondCMP',
     isCollapsed: false,
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     basePath: '/'

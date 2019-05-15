@@ -11,7 +11,6 @@
               unique-opened
               @select="selectItem"
               :collapse="isCollapsed">
-      
     </el-menu>
   </el-aside>
 </template>
@@ -43,7 +42,10 @@ export default {
     }
   },
   created () {
-    console.log(this.theme)
+    
+  },
+  mounted () {
+    
   },
   methods: {
     selectItem (index) {

@@ -41,8 +41,7 @@ const users = {
       state.basePath = basePath
     },
     SETTING_NAME(state, name) { //设置姓名
-      const userData = JSON.parse(localStorage.getItem('info'))
-      state.name = userData[0].name 
+      state.name = name
     },
     // SETTING_THEME(state, data) { //设置主题
     //   state.theme = data
@@ -67,7 +66,8 @@ const users = {
             data
           } = response
           commit('SET_TOKEN', data.token)
-          commit('SETTING_BASE_PATH', data.menuData)
+          commit('SETTING_SIDE_MENU', data.menuData)
+          console.log(data.menuData)
           setToken(data.token)
           localStorage.menuData = JSON.stringify(data.menuData);
           resolve()
@@ -88,6 +88,7 @@ const users = {
             roles,
             avatar,
             logo,
+            name,
             basePath,
             introduction
           } = data
@@ -96,7 +97,7 @@ const users = {
             reject('getInfo: roles must be a non-null array!')
           }
           commit('SET_ROLES', roles)
-          // commit('SETTING_NAME', roles[0].name)
+          commit('SETTING_NAME', name)
           commit('SET_AVATAR', avatar)
           commit('SETTING_LOGO', logo)
           commit('SETTING_BASE_PATH', basePath)
@@ -137,13 +138,10 @@ const users = {
         const token = role + '-token'
         commit('SET_TOKEN', token)
         setToken(token)
-
         const {
           roles
         } = await dispatch('getInfo')
-
         resetRouter()
-
         // generate accessible routes map based on roles
         const accessRoutes = await dispatch('permission/generateRoutes', roles, {
           root: true
