@@ -3,18 +3,18 @@
     <el-container class="app-wrapper">
       <side-bar :theme="theme" :name="name" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
       <el-container class="right-container">
-        <Header-menu @toggleSidebar="toggleSidebar">
-          
-        </Header-menu>
+        <Headers @toggleSidebar="toggleSidebar" :isCollapsed="isCollapsed">
+          <Header-Menu></Header-Menu>
+        </Headers>
       </el-container>
     </el-container>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
-console.log(mapState({theme: state => state.app.them}), 'mapState')
 import { getToken } from '@/utils/auth'
 import sideBar from '@/layouts/components/Sidebar.vue'
+import Headers from './components/header/header.vue'
 import HeaderMenu from '@/layouts/components/HeaderMenu.vue'
 export default {
   data() {
@@ -24,7 +24,7 @@ export default {
     }
   },
   components: {
-    sideBar, HeaderMenu
+    sideBar, HeaderMenu,Headers
   },
   created() {
   },
@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
   .app-wrapper {
     position: relative;
     width: 100%;
