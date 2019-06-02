@@ -1,16 +1,21 @@
 <template>
-  <Link :to="path">
+<div>
+<!-- <h1>21313131111111</h1> -->
+<Links :to="path">
       <el-menu-item :index="path">
         <svg-icon :class="meta.icon || 'icon-dian'"></svg-icon>
+        <span slot="title">{{meta.name}}</span>
         <span slot="title">{{meta.title}}</span>
       </el-menu-item>
-  </Link>
+  </Links>
+</div>
+  
 </template>
 
 <script>
-import Link from './Link'
+import Links from './Link.vue'
 export default {
-  components: { Link },
+  components: { Links },
   props: {
     path: {
       type: String
@@ -18,6 +23,9 @@ export default {
     meta: {
       type: Object
     }
+  },
+  created () {
+    console.log(this.path)
   },
   data() {
     return {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container class="app-wrapper">
-      <side-bar :theme="theme" :name="name" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
+      <side-bar :theme="theme" :name="name" :menuData="menuData" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
       <el-container class="right-container">
         <Headers @toggleSidebar="toggleSidebar" :isCollapsed="isCollapsed">
           <Header-Menu></Header-Menu>

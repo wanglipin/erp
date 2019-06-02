@@ -1,14 +1,14 @@
 <template>
   <div class='menu-wrapper' v-if="!menuItem.hidden">
     <template  v-if="menuItem.children">
-      <MenuItem :path="singleChild.path" :meta="singleChild.meta"></MenuItem>
+      <Menu-Item v-if="hasOneChild(menuItem.children, menuItem)" :path="singleChild.path" :meta="singleChild"></Menu-Item>
     </template>
-    <MenuItem v-else :path="currPath" :meta="menuItem.meta"></MenuItem>
+    <Menu-Item v-else :path="currPath" :meta="menuItem.meta"></Menu-Item>
   </div>
 </template>
 
 <script>
-import MenuItem from './MenuTtem.vue'
+import MenuItem from './MenuItem.vue'
 import { resolvePath } from '@/utils/resolvePath'
 export default {
   name: 'SidebarItem',
@@ -22,7 +22,8 @@ export default {
     },
     isLimitLevel: {
       type: Boolean
-    }
+    },
+    
   },
   data() {  
     return {
@@ -34,15 +35,21 @@ export default {
       return this.resolvePath(this.basePath, this.menuItem.path);
     }
   },
+  created () {
+    
+  },
   methods: {
     resolvePath(basePath, routePath) {
       return resolvePath(basePath, routePath);
     },
-  hasOneChild (children, parent) {
-    if (children.length === 1 && !parent.meta.alwaysShow) {
-      this.singleChild = children[0];
-      return true;
-    }
+    hasOneChild (children, parent) {
+      console.log(children)
+      console.log(parent)
+      if (children.length === 1 && !parent.meta.alwaysShow) {
+        this.singleChild = children[0];
+        console.log(this.singleChild,'this.singleChild')
+        return true;
+      }
       return false;
     }
   }

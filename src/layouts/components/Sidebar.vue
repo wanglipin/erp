@@ -4,18 +4,27 @@
       <img :src="logo" alt="平台logo" v-if="logo">
       <h1>{{name}}</h1>
     </div>
-    <el-menu  :default-active="matchPath" class="el-menu-vertical-demo sidebar-menu"
-              :background-color="theme.sidebarColor"
-              text-color="#ccccc"
-              active-text-color="#ffffff"
-              unique-opened
-              @select="selectItem"
-              :collapse="isCollapsed">
-    </el-menu>
+    <el-scrollbar class="scrollbar-wrapper">
+      <el-menu  :default-active="matchPath" class="el-menu-vertical-demo sidebar-menu"
+                :background-color="theme.sidebarColor"
+                text-color="#ccccc"
+                active-text-color="#ffffff"
+                unique-opened
+                @select="selectItem"
+                :collapse="isCollapsed">
+        <sidebar-item v-for="route in sideMenuData" 
+                      :menuItem='route' 
+                      :key="route.path" 
+                      :isLimitLevel="isLimitLevel" 
+                      :base-path="basePath">
+        </sidebar-item>
+      </el-menu>
+    </el-scrollbar>
   </el-aside>
 </template>
 
 <script>
+import sidebarItem from './SidebarItem.vue'
 export default {
   props: {
     isCollapsed: {
@@ -23,6 +32,9 @@ export default {
     },
     logo: {
       type: String
+    },
+    menuData: {
+      type: Array
     },
     name: {
       type: String
@@ -33,7 +45,18 @@ export default {
     },
     theme: {
       type: Object
+    },
+    isLimitLevel : {
+      type: Boolean,
+      default: false
+    },
+    basePath : {
+      type: String,
+      default: '/'
     }
+  },
+  components: {
+    sidebarItem
   },
   data() {
     return {
@@ -41,14 +64,33 @@ export default {
     }
   },
   created () {
-    
+
   },
   mounted () {
     
   },
+  computed: {
+    sideMenuData () {
+      return this.filterMenuData(this.menuData);
+    }
+  },
   methods: {
+    // 对菜单数据做过滤，去掉隐藏菜单
+    filterMenuData (data) {
+        const menu = [];
+        data.forEach(item => {
+            if(!item.hidden){
+                const cache = { ...item };
+                menu.push(cache);
+                if(item.children) {
+                    cache.children = this.filterMenuData(item.children);
+                }
+            }
+        });
+        return menu.length ? menu : null;
+    },
     selectItem (index) {
-      this.$emit('select', index)
+        this.$emit('select', index);
     }
   },
 }
