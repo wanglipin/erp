@@ -1,7 +1,9 @@
 <template>
-  <component v-bind:is="linkProps(to)">
-    <slot/>
-  </component>
+  <div>
+    <component :is="linkProps(to)">
+      <slot/>
+    </component>
+  </div>
 </template>
 
 <script>
@@ -16,6 +18,7 @@ export default {
   },
   methods: {
     linkProps(url) {
+      console.log(url,'url')
       if (isExternalLink(url)) {
         return {
             is: 'a',

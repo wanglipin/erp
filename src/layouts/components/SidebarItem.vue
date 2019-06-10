@@ -2,6 +2,17 @@
   <div class='menu-wrapper' v-if="!menuItem.hidden">
     <template  v-if="menuItem.children">
       <Menu-Item v-if="hasOneChild(menuItem.children, menuItem)" :path="singleChild.path" :meta="singleChild"></Menu-Item>
+      <el-submenu v-else :index="currPath">
+        <template slot="title">
+            <!-- <Icon :type="menuItem.meta.icon || 'icon-dian'"></Icon> -->
+            <span slot="title" class="name-title">{{menuItem.name}}</span>
+        </template>
+        <template v-for="child in menuItem.children">
+          <sidebar-item class="nest-menu" v-if="!child.hidden&&!isLimitLevel&&child.children" :menuItem="child"
+                        :key="child.path" :base-path="currPath"></sidebar-item>
+          <Menu-Item v-else-if="!child.hidden" :path="resolvePath(currPath, child.path)" :meta="child.meta" :key="child.path"></Menu-Item>
+        </template>
+      </el-submenu>
     </template>
     <Menu-Item v-else :path="currPath" :meta="menuItem.meta"></Menu-Item>
   </div>
@@ -9,10 +20,11 @@
 
 <script>
 import MenuItem from './MenuItem.vue'
+import SvgIcon from '../../components/SvgIcon'
 import { resolvePath } from '@/utils/resolvePath'
 export default {
   name: 'SidebarItem',
-  components: { MenuItem },
+  components: { MenuItem,SvgIcon },
   props: {
     menuItem: {
       type: Object
@@ -36,18 +48,15 @@ export default {
     }
   },
   created () {
-    
+    console.log(this.menuItem,'王立品')
   },
   methods: {
     resolvePath(basePath, routePath) {
       return resolvePath(basePath, routePath);
     },
     hasOneChild (children, parent) {
-      console.log(children)
-      console.log(parent)
       if (children.length === 1 && !parent.meta.alwaysShow) {
         this.singleChild = children[0];
-        console.log(this.singleChild,'this.singleChild')
         return true;
       }
       return false;
@@ -59,7 +68,10 @@ export default {
 <style lang="less" scoped>
 .menu-wrapper {
   width: 100%;
-  height: 100%;
-} 
+}
+.name-title {
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+}
 </style>
 

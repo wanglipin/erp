@@ -27,6 +27,7 @@ export default {
     sideBar, HeaderMenu,Headers
   },
   created() {
+    // this.$store.commit('SET_USERDATA');
   },
   computed: {
     ...mapState({
@@ -47,7 +48,6 @@ export default {
   },
   methods: {
     selectItem () {
-      console.log('MMMMMMMM')
     },
     toggleSidebar () {
       this.$store.commit('TOGGLE_SIDEBAR')

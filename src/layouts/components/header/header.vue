@@ -48,7 +48,6 @@ export default {
       height: 50px;
       line-height: 52px;
       cursor: pointer;
-      margin-left: 15px;
       font-size: 17px;
     }
   }

@@ -1,14 +1,13 @@
 <template>
   <ul class="pull-left header-menu">
     <li @click="selectMenu(item, 1)" v-for="item in menuData" :key="item.id" :class="{selected: item.selected}">
-      <svg-icon :icon-class="item.icon"></svg-icon>
+      <!-- <Icon :type="item.icon"></Icon> -->
       <span>{{item.name}}</span>
       <div></div>
     </li>
   </ul>
 </template>
 <script>
-import SvgIcon from '../../components/SvgIcon'
 export default {
   data () {
     return {
@@ -19,9 +18,6 @@ export default {
     firstPath () {
       this.initMenu();
     }
-  },
-  components: {
-    SvgIcon
   },
   computed: {
     firstPath: function () {
@@ -66,7 +62,6 @@ export default {
   ul.header-menu{
     margin: 0;
     list-style: none;
-    padding-left: 10px;
     li{
       font-size: 14px;
       position: relative;
@@ -75,7 +70,6 @@ export default {
       white-space: nowrap;
       padding: 0 20px;
       float: left;
-      line-height: 48px;
       .iconfont{
         font-size: 14px;
       }

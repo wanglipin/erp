@@ -1,19 +1,18 @@
 <template>
-<div>
-<!-- <h1>21313131111111</h1> -->
-<Links :to="path">
-      <el-menu-item :index="path">
-        <svg-icon :class="meta.icon || 'icon-dian'"></svg-icon>
-        <span slot="title">{{meta.name}}</span>
-        <span slot="title">{{meta.title}}</span>
-      </el-menu-item>
-  </Links>
+<div >
+  <!-- <links :to="path"> -->
+    <el-menu-item :index="path">
+      <svg-icon :icon-class="meta.icon"></svg-icon>
+      <span slot="title" class="name-title">{{meta.name}}</span>
+    </el-menu-item>
+  <!-- </links> -->
 </div>
-  
 </template>
 
 <script>
+import SvgIcon from '../../components/SvgIcon'
 import Links from './Link.vue'
+import { isArray } from 'util';
 export default {
   components: { Links },
   props: {
@@ -25,7 +24,7 @@ export default {
     }
   },
   created () {
-    console.log(this.path)
+    console.log(this.meta,'11111222222222')
   },
   data() {
     return {
@@ -36,6 +35,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.name-title {
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+}
 </style>
 
