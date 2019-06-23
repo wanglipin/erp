@@ -11,11 +11,16 @@ router.beforeEach((to, form , next) => {
   if (getToken()) {
     if (!init) {
       init = true
+      store.dispatch('GenerateRoutes')
       store.dispatch('getInfo')
-      // router.addRoutes(store.state.permission.addRoutes)
+      router.addRoutes(store.state.permission.addRoutes)
       next({ ...to, replace: true })
     } else next()
   } else if (whiteList.includes(to.path)) {
     next()
+  } else {
+    console.log('没有Token的时候重定向到登陆界面')
+    // 没有Token的时候重定向到登陆界面
+    next('/login')
   }
 })

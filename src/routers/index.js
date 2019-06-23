@@ -1,39 +1,61 @@
 import Router from 'vue-router'
-const Home = () => import('../layouts/Home.vue')
+import cmdbMap from './modules/cmdb'
+import error from './modules/error'
 const constantRoutes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/login',
     component: () => import('@/views/login'),
-    name: 'login',
-    hidden: true
+    name: 'Login'
   },
   {
-    path: '/dashboard',
-    component: Home,
+    path: '/home',
+    component: () => import('@/layouts/Home.vue'),
+    meta: {
+      title: 'Home'
+    },
     name: 'Home',
-    hidden: true,
-    meta: { title: '首页'}
+    children: [{
+      name: '401',
+      path: '401',
+      meta: {
+        title: '401'
+      },
+      component: () => import('@/views/error-page/401')
+    }, {
+      name: 'Redirect',
+      path: 'redirect',
+      component: () => import('@/layouts/redirect.vue')
+    }]
   },
   {
     path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
+    component: () => import('@/views/error-page/404')
   },
   {
     path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true
+    component: () => import('@/views/error-page/401')
   },
 ]
 
 const router = new Router({
-  // mode: 'history',
-  base: process.env.BASE_URL,
+  // // mode: 'history',
+  // base: process.env.BASE_URL,
   routes: constantRoutes
 })
-
+export const asyncRouterMap = {
+  Home: () => import('../layouts/Home.vue'),
+  App: () => import('../layouts/App.vue'),
+  ...cmdbMap,
+  ...error
+  // ...portalMap,
+  // ...resourceMap,
+  // ...opsMap,
+  // ...monitorMap,
+  // ...cmdbMap,
+  // ...serviceMap
+}
 export default router;

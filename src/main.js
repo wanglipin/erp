@@ -10,12 +10,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import './theme/index.css'
 import './assets/css/base.css'
+import lodash from 'lodash';
 import axios from './axios/request'
 import * as filters from './filters'
 Vue.use(ElementUI,  { size: 'small' })
 Vue.use(VueRouter)
 Vue.prototype.$http = axios
-
+Vue.prototype._ = lodash
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })

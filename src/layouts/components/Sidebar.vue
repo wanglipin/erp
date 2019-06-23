@@ -7,7 +7,7 @@
     <el-scrollbar class="scrollbar-wrapper">
       <el-menu  :default-active="matchPath" class="el-menu-vertical-demo sidebar-menu"
                 :background-color="theme.sidebarColor"
-                text-color="#ccccc"
+                text-color="#cccccc"
                 active-text-color="#ffffff"
                 unique-opened
                 @select="selectItem"
@@ -118,7 +118,10 @@ export default {
   .el-menu-item > i{
     margin-right: 6px;
   }
-  .el-submenu.is-opened .el-submenu__title{
+  .el-submenu__title {
+    // color: #fff !important;
+  };
+  .el-submenu.is-opened .el-submenu__title {
     color: #fff !important;
     & > i {
       color: #fff !important;

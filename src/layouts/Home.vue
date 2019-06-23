@@ -6,6 +6,17 @@
         <Headers @toggleSidebar="toggleSidebar" :isCollapsed="isCollapsed">
           <Header-Menu></Header-Menu>
         </Headers>
+        <el-container class="main-container">
+          <ThirdMenu :menuData="thirdMenuData" v-if="thirdMenuData.children"></ThirdMenu>
+          <el-main style="padding: 0 10px 10px 10px">
+            <level-bar></level-bar>
+            <el-scrollbar class="custom-scrollbar" style="height: calc(100% - 60px)">
+              <transition enter-active-class="fadeInUp" mode="out-in">
+                <router-view></router-view>
+              </transition>
+            </el-scrollbar>
+          </el-main>
+        </el-container>
       </el-container>
     </el-container>
   </div>
@@ -16,18 +27,22 @@ import { getToken } from '@/utils/auth'
 import sideBar from '@/layouts/components/Sidebar.vue'
 import Headers from './components/header/header.vue'
 import HeaderMenu from '@/layouts/components/HeaderMenu.vue'
+import ThirdMenu from './components/ThirdMenu.vue'
+import levelBar from './components/LevelBar.vue'
 export default {
   data() {
     return {
       tableData: '',
-      matchPath: ''
+      matchPath: '',
+      thirdMenuData: {}
     }
   },
   components: {
-    sideBar, HeaderMenu,Headers
+    sideBar, HeaderMenu, Headers, ThirdMenu, levelBar
   },
   created() {
-    // this.$store.commit('SET_USERDATA');
+    this.handlePath();
+    // this.$store.commit('SET_BUTTONS')
   },
   computed: {
     ...mapState({
@@ -52,6 +67,38 @@ export default {
     toggleSidebar () {
       this.$store.commit('TOGGLE_SIDEBAR')
     },
+    getThirdMenu (item) {
+      for (let items of item.children) {
+        if (items.path === this.matchPath) {
+          const thirdMenuData = this._.cloneDeep(items)
+          // 对三级菜单隐藏的数据做剔除
+          const children = []
+          items.children.forEach(_ => {
+            if (!_.hidden) children.push(_)
+          })
+          this.thirdMenuData = Object.assign(thirdMenuData, { children: children.length ? children : null })
+          break
+        }
+      }
+    },
+    getLevelPath (level) {
+      return `/${this._.trimStart(this.$route.path, '/').split('/', level).join('/')}`
+    },
+    handlePath () {
+      this.matchPath = this.getLevelPath(3)
+      // 确保刷新先更新menuData再去获取三级菜单数据
+      setTimeout(() => {
+        if (this.$route.path.split('/').length >= 5) {
+          const levelPath = this.getLevelPath(2)
+          for (let item of this.menuData) {
+            if (item.path === levelPath) {
+              this.getThirdMenu(item)
+              break
+            } else this.thirdMenuData = {}
+          }
+        } else this.thirdMenuData = {}
+      })
+    }
   },
 };
 </script>

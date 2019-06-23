@@ -20,9 +20,6 @@ const app = {
     SETTING_SIDE_MENU(state, data) { //设置侧边栏
       state.sideMenuData = data
     },
-    SETTING_BASE_PATH(state, data) { //设置基本路径
-      state.basePath = data
-    },
     SETTING_NAME(state, data) { //设置姓名
       state.name = data
     }, 

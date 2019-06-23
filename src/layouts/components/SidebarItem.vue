@@ -1,11 +1,12 @@
 <template>
   <div class='menu-wrapper' v-if="!menuItem.hidden">
     <template  v-if="menuItem.children">
-      <Menu-Item v-if="hasOneChild(menuItem.children, menuItem)" :path="singleChild.path" :meta="singleChild"></Menu-Item>
+      <!-- 目前第一次登陆着这个 -->
+      <Menu-Item v-if="hasOneChild(menuItem.children, menuItem)" :path="singleChild.path" :meta="singleChild.meta"></Menu-Item>
       <el-submenu v-else :index="currPath">
         <template slot="title">
-            <!-- <Icon :type="menuItem.meta.icon || 'icon-dian'"></Icon> -->
-            <span slot="title" class="name-title">{{menuItem.name}}</span>
+            <svg-icon :icon-class="menuItem.meta.icon || 'dian'"></svg-icon>
+            <span slot="title" class="name-title">{{menuItem.meta.title}}</span>
         </template>
         <template v-for="child in menuItem.children">
           <sidebar-item class="nest-menu" v-if="!child.hidden&&!isLimitLevel&&child.children" :menuItem="child"
@@ -48,13 +49,14 @@ export default {
     }
   },
   created () {
-    console.log(this.menuItem,'王立品')
+    console.log(this.menuItem,'menuItemmenuItemmenuItemmenuItemmenuItemmenuItemmenuItem')
   },
   methods: {
     resolvePath(basePath, routePath) {
       return resolvePath(basePath, routePath);
     },
     hasOneChild (children, parent) {
+      // 如果子菜单只有一个就走这里
       if (children.length === 1 && !parent.meta.alwaysShow) {
         this.singleChild = children[0];
         return true;

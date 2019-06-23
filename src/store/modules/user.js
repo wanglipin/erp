@@ -100,6 +100,7 @@ const users = {
           commit('SETTING_NAME', name)
           commit('SET_AVATAR', avatar)
           commit('SETTING_LOGO', logo)
+          console.log(basePath, 'basePathbasePathbasePathbasePathbasePathbasePathbasePathbasePathbasePath')
           commit('SETTING_BASE_PATH', basePath)
           commit('SET_INTRODUCTION', introduction)
           localStorage.info = JSON.stringify(data);
@@ -143,6 +144,7 @@ const users = {
         } = await dispatch('getInfo')
         resetRouter()
         // generate accessible routes map based on roles
+        console.log(roles)
         const accessRoutes = await dispatch('permission/generateRoutes', roles, {
           root: true
         })

@@ -3,7 +3,7 @@
     <el-form :model="loginForm"  ref="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="login-row">
         <div class="title-container">
-          <h3>王者荣耀系统</h3>
+          <h3>Vue组件系统</h3>
         </div>
         <el-form-item  prop="username">
           <span class="svg-container">
@@ -89,7 +89,7 @@ export default {
           .then(() => {
             // this.$router.push({ path: this.redirect || '/' })
             // this.$router.replace('dashboard');
-            this.$router.push('dashboard');
+           this.$router.push({ path: 'home' })
             this.loading = false
           })
           .catch(() => {
@@ -159,7 +159,7 @@ export default {
 .login-container {
   width: 100%;
   height: 100vh;
-  // background-image: url('../../assets/img/bg/bg.jpeg');
+  background-image: url('../../assets/img/bg/bg.jpeg');
   background-color: darkkhaki;
   background-size: cover;
   .login-form {

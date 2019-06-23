@@ -1,11 +1,11 @@
 <template>
 <div >
-  <!-- <links :to="path"> -->
+  <Links :to="path">
     <el-menu-item :index="path">
-      <svg-icon :icon-class="meta.icon"></svg-icon>
-      <span slot="title" class="name-title">{{meta.name}}</span>
+      <svg-icon :icon-class="meta.icon || 'dian'"></svg-icon>
+      <span class="name-title">{{ meta.title }}</span>
     </el-menu-item>
-  <!-- </links> -->
+  </Links>
 </div>
 </template>
 
@@ -14,7 +14,6 @@ import SvgIcon from '../../components/SvgIcon'
 import Links from './Link.vue'
 import { isArray } from 'util';
 export default {
-  components: { Links },
   props: {
     path: {
       type: String
@@ -24,13 +23,14 @@ export default {
     }
   },
   created () {
-    console.log(this.meta,'11111222222222')
+    console.log(this.meta,'你好王立品1111')
   },
   data() {
     return {
       
     }
   },
+  components: { Links }
 }
 </script>
 
