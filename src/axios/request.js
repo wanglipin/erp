@@ -43,6 +43,8 @@ const axiosInstance = axios.create({
 let loadingService = '';
 // 请求完成回调
 const finishCallback = function () {
+
+  loadingService && loadingService.close();
   loadingService && loadingService.close();
   NProgress.done();
 };
@@ -75,6 +77,10 @@ axiosInstance.interceptors.request.use(config => {
   } else {
     config.data = qs.stringify(config.data || {});
   }
+<<<<<<< Updated upstream
+=======
+  // 读取存储的token 给每个请求头都加上
+>>>>>>> Stashed changes
   if (store.getters.token) {
     config.headers['X-Token'] = getToken()
   }

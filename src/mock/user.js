@@ -1,6 +1,7 @@
 const tokens = {
   admin: {
     token: 'admin-token',
+<<<<<<< Updated upstream
     menuData: [
       {
         category: "menu",
@@ -63,6 +64,9 @@ const tokens = {
         priority: 2
       }
     ]
+=======
+    abort: true
+>>>>>>> Stashed changes
   },
   editor: {
     token: 'editor-token'
@@ -109,6 +113,7 @@ export default [
         username
       } = config.body
       const token = tokens[username]
+      const abort = true
 
       // mock error
       if (!token) {
@@ -119,7 +124,11 @@ export default [
       }
       return {
         success: true,
+<<<<<<< Updated upstream
         data: token
+=======
+        data: {token, abort} //////////////做晚改到这里了
+>>>>>>> Stashed changes
       }
     }
   },
@@ -134,7 +143,11 @@ export default [
       if (!info) {
         return {
           success: false,
+<<<<<<< Updated upstream
           message: '获取用户信息失败'
+=======
+          message: 'Login failed, unable to get user details.'
+>>>>>>> Stashed changes
         }
       }
       return {

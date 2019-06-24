@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { param2Obj } from '../utils/'
+import { param2Obj } from '../utils/index'
 
 import user from './user'
 const mocks = [
