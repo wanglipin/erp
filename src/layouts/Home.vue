@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container class="app-wrapper">
+    <el-container class="app-wrapper" :class="[{hideSidebar:isCollapsed}, theme.name]">
       <side-bar :theme="theme" :name="name" :menuData="menuData" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
       <el-container class="right-container">
         <Headers @toggleSidebar="toggleSidebar" :isCollapsed="isCollapsed">
@@ -12,7 +12,7 @@
             <level-bar></level-bar>
             <el-scrollbar class="custom-scrollbar" style="height: calc(100% - 60px)">
               <transition enter-active-class="fadeInUp" mode="out-in">
-                <router-view></router-view>
+                <!-- <router-view></router-view> -->
               </transition>
             </el-scrollbar>
           </el-main>

@@ -3,7 +3,7 @@
   <Links :to="path">
     <el-menu-item :index="path">
       <svg-icon :icon-class="meta.icon || 'dian'"></svg-icon>
-      <span class="name-title">{{ meta.title }}</span>
+      <span slot="title" class="name-title">{{ meta.title }}</span>
     </el-menu-item>
   </Links>
 </div>
@@ -19,11 +19,11 @@ export default {
       type: String
     },
     meta: {
-      type: Object
+      type: [Object, String]
     }
   },
   created () {
-    console.log(this.meta,'你好王立品1111')
+    // console.log(this.meta,'你好王立品1111')
   },
   data() {
     return {

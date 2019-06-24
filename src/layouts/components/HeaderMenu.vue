@@ -1,10 +1,11 @@
 <template>
   <ul class="pull-left header-menu">
-    <li @click="selectMenu(item, 1)" v-for="item in menuData" :key="item.id" :class="{selected: item.selected}" v-if="!item.hidden">
-      <svg-icon :icon-class="item.meta.icon"></svg-icon>
-      <span style="paddingLeft:5px">{{item.meta.title}}</span>
-      <div></div>
-    </li>
+    <template v-for="item in menuData">
+      <li @click="selectMenu(item, 1)" :key="item.id" :class="{selected: item.selected}" v-if="!item.hidden">
+        <svg-icon :icon-class="item.meta.icon"></svg-icon>
+        <span style="paddingLeft:5px">{{item.meta.title}}</span>
+      </li>
+    </template>
   </ul>
 </template>
 <script>
@@ -34,7 +35,6 @@ export default {
   methods: {
     getJumpRoute (data) {
       const route = data[0];
-      console.log(route,'dattaaaaaaa')
       if (route.children) {
         return this.getJumpRoute(route.children);
       }
