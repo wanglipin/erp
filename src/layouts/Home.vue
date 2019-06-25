@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <el-container class="app-wrapper" :class="[{hideSidebar:isCollapsed}, theme.name]">
-      <side-bar :theme="theme" :name="name" :menuData="menuData" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
-      <el-container class="right-container">
-        <Headers @toggleSidebar="toggleSidebar" :isCollapsed="isCollapsed">
-          <Header-Menu></Header-Menu>
-        </Headers>
-        <el-container class="main-container">
-          <ThirdMenu :menuData="thirdMenuData" v-if="thirdMenuData.children"></ThirdMenu>
-          <el-main style="padding: 0 10px 10px 10px">
-            <level-bar></level-bar>
-            <el-scrollbar class="custom-scrollbar" style="height: calc(100% - 60px)">
-              <transition enter-active-class="fadeInUp" mode="out-in">
-                <!-- <router-view></router-view> -->
-              </transition>
-            </el-scrollbar>
-          </el-main>
-        </el-container>
+  <el-container class="app-wrapper" :class="[{hideSidebar:isCollapsed}, theme.name]">
+    <side-bar :theme="theme" :name="name" :menuData="menuData" :matchPath="matchPath" :isCollapsed="isCollapsed" :logo="logo" @select="selectItem"></side-bar>
+    <el-container class="right-container">
+      <Headers @toggleSidebar="toggleSidebar" :isCollapsed="isCollapsed">
+        <Header-Menu></Header-Menu>
+      </Headers>
+      <el-container class="main-container">
+        <ThirdMenu :menuData="thirdMenuData" v-if="thirdMenuData.children"></ThirdMenu>
+        <el-main style="padding: 0 10px 10px 10px">
+          <level-bar></level-bar>
+          <el-scrollbar class="custom-scrollbar" style="height: calc(100% - 60px)">
+            <transition enter-active-class="fadeInUp" mode="out-in">
+              <router-view></router-view>
+            </transition>
+          </el-scrollbar>
+        </el-main>
       </el-container>
     </el-container>
-  </div>
+  </el-container>
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -103,14 +101,20 @@ export default {
 };
 </script>
 
-<style lang="less">
-  .app-wrapper {
+<style lang="less" scoped>
+  .main-container {
     position: relative;
-    width: 100%;
-    height: 100%;
+    height: calc(100% - 50px);
+    background: #f5f7f9;
   }
+
   .right-container {
     flex-direction: column;
     width: calc(100% - 180px) \0;
+  }
+   .hideSidebar {
+    .sidebar {
+      width: 64px !important;
+    }
   }
 </style>

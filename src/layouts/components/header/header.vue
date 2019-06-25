@@ -31,24 +31,22 @@ export default {
 };
 </script>
 <style lang="less">
-  .common-header {
-    -webkit-box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
-    box-sizing: border-box;
-    background: #fff;
-    color: #666;
-    border-bottom: 1px solid #ebebeb;
-    width: 100%;
-    height: 50px !important;
-    font-size: 22px;
-    line-height: 50px;
-    padding: 0 0 0 10px;
-    .toggle-class {
-      float: left;
-      height: 50px;
-      line-height: 52px;
-      cursor: pointer;
-      font-size: 17px;
-    }
+.common-header {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  box-sizing: border-box;
+  border-bottom: 1px solid #ebebeb;
+  width: 100%;
+  height: 50px !important;
+  font-size: 22px;
+  line-height: 50px;
+  padding: 0 0 0 10px;
+  .toggle-class {
+    float: left;
+    height: 50px;
+    line-height: 43px;
+    cursor: pointer;
+    margin-left: 15px
   }
+}
 </style>

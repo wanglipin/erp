@@ -1,7 +1,6 @@
 const tokens = {
   admin: {
     token: 'admin-token',
-<<<<<<< Updated upstream
     menuData: [
       {
         category: "menu",
@@ -24,21 +23,21 @@ const tokens = {
                 redirect: null,
                 router: "error401",
               },
-               {
-                 category: "menu",
-                 children: null,
-                 component: "error404",
-                 id: 8,
-                 icon: "",
-                 meta: "[]",
-                 name: "404",
-                 params: "[]",
-                 parentId: 3,
-                 path: "404",
-                 priority: 2,
-                 redirect: null,
-                 router: "error404",
-               }
+              {
+                category: "menu",
+                children: null,
+                component: "error404",
+                id: 8,
+                icon: "",
+                meta: "[]",
+                name: "404",
+                params: "[]",
+                parentId: 3,
+                path: "404",
+                priority: 2,
+                redirect: null,
+                router: "error404",
+              }
             ],
             component: "App",
             icon: "404",
@@ -51,6 +50,51 @@ const tokens = {
             priority: 2,
             redirect: null,
             router: 'error',
+          },
+          {
+            category: "menu",
+            children: [{
+                category: "menu",
+                children: null,
+                component: "dynamicTable",
+                id: 11,
+                icon: "",
+                meta: "[]",
+                name: "动态 Table",
+                params: "[]",
+                parentId: 0,
+                path: "dynamicTable",
+                priority: 4,
+                redirect: null,
+                router: "error401",
+              },
+              {
+                category: "menu",
+                children: null,
+                component: "EditableTable",
+                id: 12,
+                icon: "",
+                meta: "[]",
+                name: "Table内编辑",
+                params: "[]",
+                parentId: 5,
+                path: "EditableTable",
+                priority: 2,
+                redirect: null,
+                router: "EditableTable",
+              }
+            ],
+            component: "App",
+            icon: "table",
+            id: 10,
+            meta: "[]",
+            name: "Table",
+            params: "[]",
+            parentId: 0,
+            path: "table",
+            priority: 2,
+            redirect: null,
+            router: 'table',
           }
         ],
         component: "Home",
@@ -64,9 +108,6 @@ const tokens = {
         priority: 2
       }
     ]
-=======
-    abort: true
->>>>>>> Stashed changes
   },
   editor: {
     token: 'editor-token'
@@ -124,11 +165,7 @@ export default [
       }
       return {
         success: true,
-<<<<<<< Updated upstream
         data: token
-=======
-        data: {token, abort} //////////////做晚改到这里了
->>>>>>> Stashed changes
       }
     }
   },
@@ -143,11 +180,7 @@ export default [
       if (!info) {
         return {
           success: false,
-<<<<<<< Updated upstream
           message: '获取用户信息失败'
-=======
-          message: 'Login failed, unable to get user details.'
->>>>>>> Stashed changes
         }
       }
       return {
