@@ -75,7 +75,7 @@ const tokens = {
                 id: 12,
                 icon: "",
                 meta: "[]",
-                name: "Table内编辑",
+                name: "可拖拽Table",
                 params: "[]",
                 parentId: 5,
                 path: "EditableTable",

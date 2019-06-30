@@ -6,9 +6,8 @@
       </div>
       <div>
         <el-checkbox-group v-model="tableHeader" style="padding-bottom: 15px;">
-          <!-- <el-checkbox label="姓名"></el-checkbox> -->
-          <el-checkbox label="年龄"></el-checkbox>
-          <el-checkbox label="性别"></el-checkbox>
+          <el-checkbox label="性别">性别</el-checkbox>
+          <el-checkbox label="年龄">年龄</el-checkbox>
         </el-checkbox-group>
         <el-table
           :data="tableData"
@@ -16,15 +15,10 @@
           style="width: 100%">
           <el-table-column label="姓名" prop="name" align="center">
           </el-table-column>
-          <el-table-column
-            prop="sex"
-            label="性别"
-            >
-          </el-table-column>
-          <el-table-column
-            prop="age"
-            label="年龄"
-            v-show="tableHeader.indexOf('年龄') > -1">
+          <el-table-column v-for="item in formThead" :key="item" :label="item">
+            <template slot-scope="scope">
+              {{ scope.row[item] }}
+            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -33,20 +27,38 @@
 </template>
 
 <script>
+const arr = ['性别','年龄']
 export default {
   data() {
     return {
-      tableHeader: ['姓名','年龄', '性别'],
       tableData: [{
-          age: '16',
-          name: '张三',
-          sex: '男'
-        }, {
-          age: '17',
-          name: '李四',
-          sex: '女'
-        }]
+        年龄: '16',
+        name: '张三',
+        性别: '男'
+      }, {
+        年龄: '17',
+        name: '李四',
+        性别: '女'
+      }],
+      formTheadOptions: ['性别', '年龄'],
+      formThead: arr,
+      tableHeader: arr,
+      // key: 1
     }
+  },
+  created () {
+  },
+  computed: {},
+  methods: {
+  },
+  watch: {
+    tableHeader (Val) {
+      console.log(Val)
+      this.formThead = this.formTheadOptions.filter(item => Val.indexOf(item) >= 0)
+      // this.key = this.key + 1// 为了保证table 每次都会重渲 
+    }
+  },
+  mounted() {
   },
 }
 </script>
