@@ -6,8 +6,9 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 const port = 8088
-// const httpType = 'http://'
+const httpType = 'http://'
 // const proxyUrl = `localhost:${port}/mock` // 代理地址设置
+const proxyUrl = `localhost:3000` // 代理地址设置
 module.exports = {
   // 基本路径
   publicPath: '/',
@@ -49,13 +50,20 @@ module.exports = {
     hotOnly: true,//是否开启热更新
     proxy: {
       // 配置跨域
-      [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:${port}/mock`,
+      // [process.env.VUE_APP_BASE_API]: {
+      //   target: `http://localhost:${port}/mock`,
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     ['^' + process.env.VUE_APP_BASE_API]: ''
+      //   }
+      // }
+      '/api': {
+        target: httpType + proxyUrl,
         changeOrigin: true,
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
+          '^/api/': '/'
         }
-      }
+      },
     },
     after: require('./src/mock/mock-server.js'),
     before (app) { // 请求数据这样写就可以了moke

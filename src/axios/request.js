@@ -38,7 +38,7 @@ const axiosInstance = axios.create({
     'BsmAjaxHeader': true
   }, // 表单传递
   timeout: 20000,
-  withCredentials: true,
+  withCredentials: true,// 设置axios可以携带cookie
 });
 let loadingService = '';
 // 请求完成回调
@@ -77,9 +77,9 @@ axiosInstance.interceptors.request.use(config => {
   } else {
     config.data = qs.stringify(config.data || {});
   }
-  if (store.getters.token) {
-    config.headers['X-Token'] = getToken()
-  }
+  // if (store.getters.token) { // moke的时候使用的
+  //   config.headers['X-Token'] = getToken()
+  // }
   return config;
 }, error => {
   return Promise.reject(error);

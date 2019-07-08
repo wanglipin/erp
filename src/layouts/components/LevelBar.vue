@@ -26,8 +26,7 @@ export default {
         route = Object.assign({}, this.cacheRoute);
       } else {
         route = this.$route;
-        console.log(route,'routerouterouterouterouterouterouterouterouterouterouteroute')
-        this.cacheRoute = Object.assign({}, this.$route);
+        // this.cacheRoute = Object.assign({}, route);
       }
       return route.matched.filter(item => {
         return !item.meta.hiddenLevel;

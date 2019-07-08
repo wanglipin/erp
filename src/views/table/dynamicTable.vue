@@ -21,6 +21,14 @@
             </template>
           </el-table-column>
         </el-table>
+        <el-pagination
+          @current-change="fenye()"
+          small
+          :current-page.sync="assessParams.page"
+          layout="prev, pager, next"
+          :total="50">
+        </el-pagination>
+        <el-input v-model="input" placeholder="请输入内容" @change="fenye(1)"></el-input>
       </div>
     </el-card>
   </div>
@@ -31,6 +39,11 @@ const arr = ['性别','年龄']
 export default {
   data() {
     return {
+      assessParams: {
+        page: 1,
+        rows: 10
+      },
+      input: '',
       tableData: [{
         年龄: '16',
         name: '张三',
@@ -50,6 +63,20 @@ export default {
   },
   computed: {},
   methods: {
+    fenye (nub) {
+      if (nub) {
+        this.assessParams.page = 1;
+      }
+      // console.log('触发分页了')
+      // console.log(nub,'111111111')
+      console.log(this.assessParams.page,'assessParams.page')
+    },
+    handleCici (nub) {
+      if (nub) {
+        // console.log(nub,'111111111')
+        console.log(this.assessParams.page,'assessParams.page')
+      }
+    }
   },
   watch: {
     tableHeader (Val) {

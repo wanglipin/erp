@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { getToken, setToken } from '@/utils/auth'
 export default {
   data() {
     return {
@@ -70,6 +71,7 @@ export default {
       immediate: true
     }
   },
+  created () {},
   methods: {
     showPwd () {
       if (this.passwordType === 'password') {
@@ -85,20 +87,65 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          this.$store.dispatch('login', this.loginForm)
-          .then(() => {
-            // this.$router.push({ path: this.redirect || '/' })
-            // this.$router.replace('dashboard');
-           this.$router.push({ path: 'home' })
-            this.loading = false
+          this.$http({
+            method: 'post',
+            url: '/login',
+            data: this.loginForm
           })
-          .catch(() => {
-            this.loading = false
+          .then(response => {
+            if (response.success) {
+              const {
+                admin,
+                editor
+              } = response
+              this.$store.commit('SET_TOKEN', admin.token)
+              setToken(admin.token)
+              this.$store.commit('SETTING_SIDE_MENU', admin.menuData)
+              localStorage.menuData = JSON.stringify(admin.menuData);
+              this.$router.push({ path: 'home' })
+              this.$nextTick(() =>{
+                this.getInfo(admin.token)
+              })
+            }
+            }).catch(error => {
+              console.log(error)
           })
-        } else {
-          console.log('error submit!!')
-          return false;
+        } 
+      })
+    },
+    getInfo(token) {
+      this.$http({
+        method: 'post',
+        url: '/getInfo',
+        data: { token }
+      })
+      .then(response => {
+        if (response.success) {
+          const {
+            data
+          } = response
+          const {
+            roles,
+            avatar,
+            logo,
+            name,
+            basePath,
+            introduction
+          } = data
+          if (!roles || roles.length <= 0) {
+            reject('getInfo: roles must be a non-null array!')
+          }
+          // this.$store.$commit('SET_ROLES', roles)
+          // this.$store.commit('SETTING_NAME', name)
+          // this.$store.commit('SET_AVATAR', avatar)
+          // this.$store.commit('SETTING_LOGO', logo)
+          // this.$store.commit('SETTING_BASE_PATH', basePath)
+          // this.$store.commit('SET_INTRODUCTION', introduction)
+          // localStorage.info = JSON.stringify(data);
+          // console.log(data)
         }
+      }).catch(error => {
+        console.log(error)
       })
     }
   }

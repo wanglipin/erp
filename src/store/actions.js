@@ -3,19 +3,19 @@ import { login, logout, getInfo } from '@/axios/api/user'
 import { setToken, removeToken } from '@/utils/auth'
 const actions = {
   // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const data = response.data
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
+  // login({ commit }, userInfo) {
+  //   const { username, password } = userInfo
+  //   return new Promise((resolve, reject) => {
+  //     login({ username: username.trim(), password: password }).then(response => {
+  //       const data = response.data
+  //       commit('SET_TOKEN', data.token)
+  //       setToken(data.token)
+  //       resolve()
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // },
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
