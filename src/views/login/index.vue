@@ -89,7 +89,7 @@ export default {
           this.loading = true;
           this.$http({
             method: 'post',
-            url: '/login',
+            url: '/user/login',
             data: this.loginForm
           })
           .then(response => {

@@ -11,7 +11,7 @@ const httpType = 'http://'
 const proxyUrl = `localhost:3000` // 代理地址设置
 module.exports = {
   // 基本路径
-  publicPath: '/',
+  baseUrl: '/',
   // 输出文件目录
   outputDir: 'dist',
   // eslint-loader 是否在保存的时候检查
