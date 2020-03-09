@@ -4,6 +4,8 @@ const cmdb = {
   // Applatformaa: () => import('@views/Applatformaa.vue'),
   // App5: () => import('@/views/App5.vue'),
   dynamicTable: () => import('@/views/table/dynamicTable.vue'),
-  EditableTable: () => import('@/views/table/dragTable.vue')
+  EditableTable: () => import('@/views/table/dragTable.vue'),
+  Nestedpage: () => import('@/views/nestedpage/index.vue'),
+  ScriptEditor: () => import('@/views/editor')
 }
 export default cmdb

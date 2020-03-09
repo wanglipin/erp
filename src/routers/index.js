@@ -1,6 +1,7 @@
 import Router from 'vue-router'
 import cmdbMap from './modules/cmdb'
 import error from './modules/error'
+import fileUpload from './modules/fileUpload'
 const constantRoutes = [
   {
     path: '/',
@@ -20,7 +21,7 @@ const constantRoutes = [
     name: 'Home',
     children: [{
       name: '401',
-      path: '401',
+      path: 'error',
       meta: {
         title: '401'
       },
@@ -50,12 +51,7 @@ export const asyncRouterMap = {
   Home: () => import('../layouts/Home.vue'),
   App: () => import('../layouts/App.vue'),
   ...cmdbMap,
-  ...error
-  // ...portalMap,
-  // ...resourceMap,
-  // ...opsMap,
-  // ...monitorMap,
-  // ...cmdbMap,
-  // ...serviceMap
+  ...error,
+  ...fileUpload
 }
 export default router;

@@ -8,10 +8,10 @@ function resolve (dir) {
 const port = 8088
 const httpType = 'http://'
 // const proxyUrl = `localhost:${port}/mock` // 代理地址设置
-const proxyUrl = `localhost:3000` // 代理地址设置
+const proxyUrl = `localhost:3001` // 代理地址设置
 module.exports = {
   // 基本路径
-  baseUrl: '/',
+  publicPath: '/',
   // 输出文件目录
   outputDir: 'dist',
   // eslint-loader 是否在保存的时候检查

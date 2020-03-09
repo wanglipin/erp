@@ -17,7 +17,6 @@ router.beforeEach((to, form , next) => {
   } else if (whiteList.includes(to.path)) {
     next()
   } else {
-    console.log('没有Token的时候重定向到登陆界面')
     // 没有Token的时候重定向到登陆界面
     next('/login')
   }

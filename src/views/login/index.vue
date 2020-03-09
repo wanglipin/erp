@@ -53,8 +53,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: 'admin',
-        password: '123456'
+        username: 'zhangsan',
+        password: '123'
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -95,16 +95,18 @@ export default {
           .then(response => {
             if (response.success) {
               const {
-                admin,
-                editor
-              } = response
-              this.$store.commit('SET_TOKEN', admin.token)
-              setToken(admin.token)
-              this.$store.commit('SETTING_SIDE_MENU', admin.menuData)
-              localStorage.menuData = JSON.stringify(admin.menuData);
+                token,
+                editor,
+                username,
+                auths
+              } = response.data
+              this.$store.commit('SET_TOKEN', token)
+              setToken(token)
+              this.$store.commit('SETTING_SIDE_MENU', auths)
+              localStorage.menuData = JSON.stringify(auths);
               this.$router.push({ path: 'home' })
               this.$nextTick(() =>{
-                this.getInfo(admin.token)
+                this.getInfo(token, username)
               })
             }
             }).catch(error => {
@@ -113,11 +115,14 @@ export default {
         } 
       })
     },
-    getInfo(token) {
+    getInfo(token, username) {
       this.$http({
         method: 'post',
-        url: '/getInfo',
-        data: { token }
+        url: '/user/Info',
+        data: { 
+          token: token,
+          name: username
+         }
       })
       .then(response => {
         if (response.success) {

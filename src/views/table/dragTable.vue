@@ -1,29 +1,31 @@
 <template>
-   <el-card class="box-card">
-    <el-table ref="dragTable" :data="tableData" border fit highlight-current-row style="width: 100%">
-    <el-table-column prop="id" label="ID" align="center" width="65"></el-table-column>
-    <el-table-column prop="data" label="时间" width="180px" align="center"></el-table-column>
-    <el-table-column prop="title" min-width="300px" label="台词"></el-table-column>
-    <el-table-column prop="author" width="110px" align="center" label="作者"></el-table-column>
-    <el-table-column width="100px" label="操作难度性">
-      <template slot-scope="scope">
-        <svg-icon v-for="n in +scope.row.mportancer" :key="n" icon-class="star" class="icon-star" />
-      </template>
-    </el-table-column>
-    <el-table-column prop="readings" width="95" label="阅读数"></el-table-column>
-    <el-table-column width="100px" label="状态">
-      <template slot-scope="{row}">
-        <el-tag :type="row.status | statusFilter">
-          {{ row.status }}
-        </el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column label="拖拽" width="80" align="center">
-      <template slot-scope="{}">
-        <svg-icon class="drag-handler" icon-class="drag" />
-      </template>
-    </el-table-column>
-  </el-table>
+  <el-card class="box-card">
+    <el-table ref="dragTable" :data="tableData" border fit highlight-current-row style="width: 100% ;cursor:move;">
+      <el-table-column prop="id" label="ID" align="center" width="65"></el-table-column>
+      <el-table-column prop="data" label="时间" width="180px" align="center"></el-table-column>
+      <el-table-column prop="title" min-width="300px" label="台词"></el-table-column>
+      <el-table-column prop="author" width="110px" align="center" label="作者"></el-table-column>
+      <el-table-column width="100px" label="操作难度性">
+        <template slot-scope="scope">
+          <svg-icon v-for="n in +scope.row.mportancer" :key="n" icon-class="star" class="icon-star" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="readings" width="95" label="阅读数"></el-table-column>
+      <el-table-column width="100px" label="状态">
+        <template slot-scope="{row}">
+          <el-tag :type="row.status | statusFilter">
+            {{ row.status }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="拖拽" width="80" align="center">
+        <template slot-scope="{}">
+          <svg-icon class="drag-handler" icon-class="drag" />
+        </template>
+      </el-table-column>
+    </el-table>
+    <p>{{ `表格排序：${ arr }` }}</p>
+    <br><br>
     <div class="drag-table">
       <p id="cc" draggable="true">请拖拽我吧</p>
     </div>
@@ -35,18 +37,20 @@
 import { statusFilter } from 'filters'
 import { fetchList } from '@/mock/article'
 import Sortable from 'sortablejs'
- document.ondragover = function (e) {
-    e.preventDefault();
-  }
-  document.ondragstart = function (e) {
-    e.dataTransfer.setData("Text", e.target.id);// id为cc
-    console.log(e.dataTransfer)
-  }
-  document.ondrop = function (e) {
-    e.preventDefault();
-    let data = e.dataTransfer.getData('Text');
-    e.target.appendChild(document.getElementById(data));
-  }
+// HTML5 原生拖拽API
+//  document.ondragover = function (e) {
+//     e.preventDefault();
+//   }
+//   document.ondragstart = function (e) {
+//     let cc = e.dataTransfer.setData("Text", e.target.id);// id为cc
+//     console.log(e.target.id,'<cccccc>')
+//   }
+//   document.ondrop = function (e) {
+//     e.preventDefault();
+//     let data = e.dataTransfer.getData('Text');
+//     console.log(data, '<data>', e.dataTransfer)
+//     e.target.appendChild(document.getElementById(data));
+//   }
   const arr = [
     {id: 1, data: '2019-05-29', title: '燃烧的剑 燃烧的心', author: '露娜', mportancer: 5, readings: 6666, 'status': 'draft'},
     {id: 2, data: '2019-05-29', title: '可以赶尽 无法杀绝', author: '李白', mportancer: 4, readings: 7777, 'status': 'draft'},
@@ -68,7 +72,8 @@ import Sortable from 'sortablejs'
         tableData: arr,
         sortable: null,
         oldList: [],
-        newList: []
+        newList: [],
+        arr: []
       }
     },
     created() {
@@ -89,26 +94,38 @@ import Sortable from 'sortablejs'
       },
       setSort () {
         const e = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-        this.sortable = Sortable.create(e, {
+        this.sortable = new Sortable(e, {
           ghostClass: 'sortable-ghost',
           animation: 150,
-          setData: (dataTransfer) => {
+          setData: (dataTransfer, dragEl) => {
             dataTransfer.setData('Text', '')
           },
           // 拖拽结束时候的回调
-          // onEnd: (evt) => {
-          //   const targetRow = this.tableData.splice(evt.oldIndex, 1)[0]
-          //   this.tableData.splice(evt.newIndex, 0, targetRow)
-
-          //   // for show the changes, you can delete in you code
-          //   const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
-          //   this.newList.splice(evt.newIndex, 0, tempIndex)
-          // },
+          onEnd: (evt) => {  //拖拽结束发生该事件
+            this.arr = []
+            let oldIndex = evt.oldIndex
+            let newIndex = evt.newIndex
+            let newDom = e.children[newIndex]
+            let oldDom = e.children[oldIndex]
+            // 先删除节点
+            e.removeChild(newDom)
+            // 再插入移动的节点到原有节点，还原了移动的操作
+            if(newIndex > oldIndex) {
+              e.insertBefore(newDom,oldDom)
+            } else {
+              e.insertBefore(newDom,oldDom.nextSibling)
+            }
+            const item = this.tableData.splice(oldIndex,1)
+            this.tableData.splice(newIndex,0,item[0])
+            this.tableData.forEach(element => {
+              this.arr.push(element.id)
+            });
+          }
         })
       }
     },
     mounted () {
-      this.setSort();
+      this.setSort()
     }
   }
 </script>

@@ -11,4 +11,6 @@ export function statusFilter (status) {
   }
   return statusMap[status]
 }
-
+export function tansformByte (value) {
+  return Number(value/1024).toFixed(0)
+}

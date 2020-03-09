@@ -21,20 +21,22 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
-          @current-change="fenye()"
-          small
-          :current-page.sync="assessParams.page"
-          layout="prev, pager, next"
-          :total="50">
-        </el-pagination>
-        <el-input v-model="input" placeholder="请输入内容" @change="fenye(1)"></el-input>
       </div>
+      <br><br>
+      <compileTable 
+        :data="tableDatas"
+        :columns="compileTableData"
+        border
+        >
+        </compileTable>
     </el-card>
+    <!-- style="position:absolute;top:80px;left: 120px;" -->
+    <!-- <iframe src="http://192.168.1.103:8088" id="mobsf" scrolling="auto" frameborder="0"></iframe> -->
   </div>
 </template>
 
 <script>
+import compileTable from './compoentens/compileTable.vue'
 const arr = ['性别','年龄']
 export default {
   data() {
@@ -56,36 +58,75 @@ export default {
       formTheadOptions: ['性别', '年龄'],
       formThead: arr,
       tableHeader: arr,
-      // key: 1
+      key: 1,
+      tableDatas: [
+        {
+          name: 'John Brown',
+          age: 18,
+          address: 'New York No. 1 Lake Park',
+          date: '2016-10-03'
+        },
+        {
+          name: 'Jim Green',
+          age: 24,
+          address: 'London No. 1 Lake Park',
+          date: '2016-10-01'
+        },
+        {
+          name: 'Joe Black',
+          age: 30,
+          address: 'Sydney No. 1 Lake Park',
+          date: '2016-10-02'
+        },
+        {
+          name: 'Jon Snow',
+          age: 26,
+          address: 'Ottawa No. 2 Lake Park',
+          date: '2016-10-04'
+          }
+      ],
+      compileTableData: [
+        {
+          title: 'Name',
+          key: 'name'
+        },
+        {
+          title: 'Age',
+          key: 'age'
+        },
+        {
+          title: 'Address',
+          key: 'address'
+        }
+      ]
     }
   },
+  components: {compileTable},
   created () {
   },
   computed: {},
   methods: {
-    fenye (nub) {
-      if (nub) {
-        this.assessParams.page = 1;
-      }
-      // console.log('触发分页了')
-      // console.log(nub,'111111111')
-      console.log(this.assessParams.page,'assessParams.page')
-    },
-    handleCici (nub) {
-      if (nub) {
-        // console.log(nub,'111111111')
-        console.log(this.assessParams.page,'assessParams.page')
-      }
-    }
+    // 做iframe标签用的
+    // changeMobsfIframe () {
+    //   const mobsf = document.getElementById('mobsf');
+    //   const deviceWidth = document.body.clientWidth;
+    //   const deviceHeight = document.body.clientHeight;
+    //   mobsf.style.width = (Number(deviceWidth)-120) + 'px'; //数字是页面布局宽度差值
+    //   mobsf.style.height = (Number(deviceHeight)-80) + 'px'; //数字是页面布局高度差
+    // }
   },
   watch: {
     tableHeader (Val) {
-      console.log(Val)
       this.formThead = this.formTheadOptions.filter(item => Val.indexOf(item) >= 0)
-      // this.key = this.key + 1// 为了保证table 每次都会重渲 
+      this.key = this.key + 1// 为了保证table 每次都会重渲 
     }
   },
   mounted() {
+      // 做iframe标签用的
+    // this.changeMobsfIframe()
+    // window.onresize = function(){
+    //   this.changeMobsfIframe()
+    // }
   },
 }
 </script>
