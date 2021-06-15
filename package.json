@@ -34,7 +34,7 @@
     "cssnano-preset-advanced": "^4.0.2",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "postcss": "^7.0.4",
+    "postcss": "^7.0.36",
     "svg-sprite-loader": "^4.1.6",
     "svgo": "^1.2.2",
     "vue-template-compiler": "^2.5.17",
